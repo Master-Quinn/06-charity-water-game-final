@@ -4,9 +4,37 @@ let gameRunning = false; // Keeps track of whether game is active or not
 let player; //Serves as the entity controlled by player
 let playerX; //Global variable to handle player position
 
-const dropCD = 50;  //Serves as the cooldown for droplets spawning
-const rockCD = 50;  //Serves as the cooldown for rocks spawning
+const dropCD = 50;        //Serves as the cooldown for water drop spawns
 const playerSpeed = 15;   //Serves as the speed at which player moves
+
+const difficultyPresets = {
+  easy: {   //Rocks are smaller, spawn less, and reach the top of the screen slower
+    rockCD: 75,
+    rockTime: 5,
+    rockBaseSize: 40
+  },
+  medium: {   //Default
+    rockCD: 50,
+    rockTime: 4,
+    rockBaseSize: 60
+  },
+  hard: {   //Rocks are faster, bigger, and more frequent
+    rockCD: 35,
+    rockTime: 3.5,
+    rockBaseSize: 70
+  }
+};
+
+const diffSelector = document.getElementById("diff-selector");
+diffSelector.addEventListener("change", setDifficulty);
+
+function setDifficulty() {
+  const difficulty = diffSelector.value;
+  console.log(difficulty);
+
+  const diffSettings = difficultyPresets[difficulty];
+  console.log(diffSettings);
+}
 
 // Wait for button click to start the game
 document.getElementById("start-btn").addEventListener("click", startGame);
