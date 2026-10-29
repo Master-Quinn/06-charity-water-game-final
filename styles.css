@@ -118,8 +118,15 @@ body {
 
 .score {
     flex: 0 1 auto;  /* Don't grow, can shrink, auto basis */
+    align-items: center;
     font-size: 24px;
     font-weight: bold;
+}
+
+#score-img {
+  width: auto;
+  height: 37px;
+  
 }
 
 .player {

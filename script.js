@@ -119,7 +119,7 @@ function gameLoop(timestamp) {
   let dropList = document.querySelectorAll(".water-drop");
   dropList.forEach((drop) => {
     if (checkCollision(player, drop)) {
-      score.textContent = String(parseInt(score.textContent, 10) + 10);
+      score.textContent = String(parseInt(score.textContent, 10) + 1);
       drop.remove();
     }
   });
