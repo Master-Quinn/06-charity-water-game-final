@@ -10,30 +10,35 @@ const playerSpeed = 15;   //Serves as the speed at which player moves
 const difficultyPresets = {
   easy: {   //Rocks are smaller, spawn less, and reach the top of the screen slower
     rockCD: 75,
-    rockTime: 5,
-    rockBaseSize: 40
+    rockBaseTime: 6,
+    rockBaseSize: 30
   },
   medium: {   //Default
     rockCD: 50,
-    rockTime: 4,
+    rockBaseTime: 4,
     rockBaseSize: 60
   },
   hard: {   //Rocks are faster, bigger, and more frequent
-    rockCD: 35,
-    rockTime: 3.5,
-    rockBaseSize: 70
+    rockCD: 25,
+    rockBaseTime: 2,
+    rockBaseSize: 90
   }
 };
 
 const diffSelector = document.getElementById("diff-selector");
 diffSelector.addEventListener("change", setDifficulty);
 
+let rockCD = 50;
+let rockBaseTime = 4;
+let rockBaseSize = 60;
+
 function setDifficulty() {
   const difficulty = diffSelector.value;
-  console.log(difficulty);
 
   const diffSettings = difficultyPresets[difficulty];
-  console.log(diffSettings);
+  rockCD = diffSettings.rockCD;
+  rockBaseTime = diffSettings.rockBaseTime;
+  rockBaseSize = diffSettings.rockBaseSize;
 }
 
 // Wait for button click to start the game
@@ -62,9 +67,6 @@ function startGame() {
   
   //Add player to game
   document.getElementById("game-container").appendChild(player);
-
-  // Create new drops every second (1000 milliseconds)
-  //dropMaker = setInterval(createDrop, 1000);
 
   // Create player loop for handling collisions & movement
   requestAnimationFrame(gameLoop);
@@ -204,7 +206,7 @@ function createRock() {
   rock.className = "bad-drop";
 
   // Make drops different sizes for visual variety
-  const initialSize = 60;
+  const initialSize = rockBaseSize;
   const sizeMultiplier = Math.random() * 0.8 + 0.5;
   const size = initialSize * sizeMultiplier;
   rock.style.width = rock.style.height = `${size}px`;
@@ -215,8 +217,10 @@ function createRock() {
   const xPosition = Math.random() * (gameWidth - 60);
   rock.style.left = xPosition + "px";
   
-  // Make drops fall for 4 seconds
-  rock.style.animationDuration = "4s";
+  // Make rocks fall for a random amount of seconds between (rockBaseTime - 1, rockBaseTime + 1)
+  const timeMod = Math.random() * 2 - 1;
+  const rockTime = rockBaseTime + timeMod;
+  rock.style.animationDuration = rockTime + "s";
 
   // Add the new drop to the game screen
   document.getElementById("game-container").appendChild(rock);
