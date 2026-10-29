@@ -201,17 +201,17 @@ function createDrop() {
 }
 
 function createRock() {
-  // Create a new div element that will be our water drop
+  // Create a new div element that will be our rock
   const rock = document.createElement("div");
   rock.className = "bad-drop";
 
-  // Make drops different sizes for visual variety
+  // Make rocks different sizes for visual variety
   const initialSize = rockBaseSize;
   const sizeMultiplier = Math.random() * 0.8 + 0.5;
   const size = initialSize * sizeMultiplier;
   rock.style.width = rock.style.height = `${size}px`;
 
-  // Position the drop randomly across the game width
+  // Position the rock randomly across the game width
   // Subtract 60 pixels to keep drops fully inside the container
   const gameWidth = document.getElementById("game-container").offsetWidth;
   const xPosition = Math.random() * (gameWidth - 60);
@@ -222,10 +222,10 @@ function createRock() {
   const rockTime = rockBaseTime + timeMod;
   rock.style.animationDuration = rockTime + "s";
 
-  // Add the new drop to the game screen
+  // Add the new rock to the game screen
   document.getElementById("game-container").appendChild(rock);
 
-  // Remove drops that reach the top
+  // Remove rocks that reach the top
   rock.addEventListener("animationend", () => {
     rock.remove(); // Clean up drops that weren't caught
   });
